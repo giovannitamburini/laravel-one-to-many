@@ -112,6 +112,7 @@ function routeNameContains($string) {
                 </div>
             </div>
 
+            {{-- PROGETTI --}}
             {{--nell'interpolazione della classe, il metodo restituisce true/false --}}
             <div class="card {{routeNameContains('projects.') ? 'border-primary' : ''}}">
                 <div class="card-header {{routeNameContains('projects.') ? 'text-primary' : ''}}">
@@ -120,11 +121,23 @@ function routeNameContains($string) {
 
                 <div class="list-group list-group-flush">
                     <a href="{{route('admin.projects.index')}}" class="list-group-item list-group-item-action {{routeNameContains('projects.index') ? 'active' : ''}}">Tutti i progetti</a>
+                    <a href="{{route('admin.projects.create')}}" class="list-group-item list-group-item-action {{routeNameContains('projects.create') ? 'active' : ''}}">Aggiungi un progetto</a>
+                </div>
+                
+            </div>
+
+            {{-- TIPOLOGIE --}}
+            {{--nell'interpolazione della classe, il metodo restituisce true/false --}}
+            <div class="card {{routeNameContains('types.') ? 'border-primary' : ''}}">
+                <div class="card-header {{routeNameContains('types.') ? 'text-primary' : ''}}">
+                    Type
                 </div>
 
                 <div class="list-group list-group-flush">
-                    <a href="{{route('admin.projects.create')}}" class="list-group-item list-group-item-action {{routeNameContains('projects.create') ? 'active' : ''}}">Aggiungi un progetto</a>
+                    <a href="{{route('admin.types.index')}}" class="list-group-item list-group-item-action {{routeNameContains('types.index') ? 'active' : ''}}">Tutte le categorie</a>
+                    <a href="{{route('admin.types.create')}}" class="list-group-item list-group-item-action {{routeNameContains('types.create') ? 'active' : ''}}">Aggiungi una categoria</a>
                 </div>
+                
             </div>
 
         </aside>
