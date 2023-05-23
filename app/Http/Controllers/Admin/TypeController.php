@@ -6,6 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Models\Type;
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\Validator;
+
+use Illuminate\Support\Str;
+
 class TypeController extends Controller
 {
     /**
@@ -27,7 +31,8 @@ class TypeController extends Controller
      */
     public function create()
     {
-        //
+
+        return view('admin.types.create');
     }
 
     /**
@@ -38,7 +43,22 @@ class TypeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $formData = $request->all();
+
+        // dd($formData);
+
+        // richiamo la funzione di validazione
+        $this->validation($formData);
+
+        $type = new Type();
+
+        $type->fill($formData);
+
+        $type->slug = Str::slug($type->name, '-');
+
+        $type->save();
+
+        return redirect()->route('admin.types.show', $type);
     }
 
     /**
@@ -84,5 +104,26 @@ class TypeController extends Controller
     public function destroy(Type $type)
     {
         //
+    }
+
+    private function validation($formData)
+    {
+
+
+        $validator = Validator::make($formData, [
+
+            'name' => 'required|max:255|min:2',
+            'description' => 'required'
+
+        ], [
+
+            'name.required' => 'Devi inserire il nome',
+            'name.max' => 'Il nome non deve essere più lungo di 100 caratteri',
+            'name.min' => 'Il nome deve avere minimo 2 caratteri',
+            'description.required' => 'Devi inserire una descrizione',
+
+        ])->validate();
+
+        return $validator;
     }
 }

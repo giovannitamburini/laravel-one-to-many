@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
 });
 
 
@@ -39,10 +39,10 @@ Route::middleware('auth')->group(function () {
 // creo un gruppo di rotte per la sezione dedicata all'admin
 Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(function () {
 
-    Route::resource('projects', ProjectController::class)->parameters(['projects' => 'project:slug']);
+    Route::get('/', [DashboardController::class, 'home'])->name('home');
 
     // projects
-    Route::get('/', [DashboardController::class, 'home'])->name('home');
+    Route::resource('projects', ProjectController::class)->parameters(['projects' => 'project:slug']);
 
     // types
     Route::resource('types', TypeController::class)->parameters(['types' => 'type:slug']);

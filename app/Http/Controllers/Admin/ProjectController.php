@@ -143,7 +143,7 @@ class ProjectController extends Controller
             'title.required' => 'Devi inserire il titolo',
             'title.max' => 'Il titolo non deve essere più lungo di 100 caratteri',
             'title.min' => 'Il titolo deve avere minimo 3 caratteri',
-            'content.required' => 'Devi inserire una descrizione',
+            'content.required' => 'Devi inserire un contenuto',
             'type_id.exists' => 'La tipologia deve essere presente nella lista'
 
         ])->validate();

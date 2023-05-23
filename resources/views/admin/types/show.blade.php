@@ -4,6 +4,7 @@
 
 <div class="coontainer py-3">
 
+    {{-- nome del tipo inserito nel titolo --}}
     <h1>Progetti della tipologia "{{$type->name}}"</h1>
 
     {{-- comprendo l'eventualità che la tipologia mostrata non abbia alcun progetto --}}
@@ -20,8 +21,11 @@
             @foreach ($type->projects as $project)
                 
             <tr>
+                {{-- titolo --}}
                 <td>{{$project->title}}</td>
+                {{-- slug --}}
                 <td>{{$project->slug}}</td>
+                {{-- link che porta alla show del singolo progetto --}}
                 <td><a href="{{route('admin.projects.show', $project)}}"><i class="fa-solid fa-magnifying-glass"></i></a></td>
             </tr>
 
