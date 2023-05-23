@@ -16,6 +16,9 @@
             Slug
         </th>
         <th>
+            Type
+        </th>
+        <th>
             Comandi
         </th>
     </thead>
@@ -29,6 +32,8 @@
             <td>{{$project->title}}</td>
             <td>{{$project->content}}</td>
             <td>{{$project->slug}}</td>
+            {{-- aggiungo il punto di domanda per includere la possibilitò che la tipologia sia nulla --}}
+            <td>{{$project->type?->name}}</td>
             <td>
                 <a href="{{route('admin.projects.show', $project->slug)}}">
                     <i class="fa-solid fa-magnifying-glass"></i>
