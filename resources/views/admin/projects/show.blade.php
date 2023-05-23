@@ -2,14 +2,19 @@
 
 @section('content')
 
-<div class="main container pt-5 text-center">
+<div class="container text-center">
 
     <div class="py-3">
 
         
-        <h1>Visualizzazione Progetto</h1>
-        
+        <h1 class="text-start">Visualizzazione Progetto</h1>
+
+        {{-- tipologia, operatore ternario per il caso in cui il valore type sia nullo(visto che è stata impostata la possibilità che sia nullo) --}}
+        <span>Tipologia: {{$project->type ? $project->type->name : 'nessuna'}}</span>
+        <hr>
+
         <h2>{{$project->title}}</h2>
+        <small>{{$project->slug}}</small>
         <hr>
         <p>{{$project->content}}</p>
     </div>

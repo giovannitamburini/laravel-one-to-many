@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Project;
+use App\Models\Type;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -32,7 +33,9 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        return view('admin.projects.create');
+        $types = Type::all();
+
+        return view('admin.projects.create', compact('types'));
     }
 
     /**
@@ -44,6 +47,8 @@ class ProjectController extends Controller
     public function store(Request $request)
     {
         $formData = $request->all();
+
+        // dd($formData);
 
         $this->validation($formData);
 
@@ -66,6 +71,7 @@ class ProjectController extends Controller
      */
     public function show(Project $project)
     {
+
         return view('admin/projects/show', compact('project'));
     }
 
@@ -77,7 +83,9 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
-        return view('admin.projects.edit', compact('project'));
+        $types = Type::all();
+
+        return view('admin.projects.edit', compact('project', 'types'));
     }
 
     /**
@@ -126,7 +134,9 @@ class ProjectController extends Controller
         $validator = Validator::make($formData, [
 
             'title' => 'required|max:255|min:3',
-            'content' => 'required'
+            'content' => 'required',
+            // type_id può essere nullo e deve esistere nella tabella 'types', 'id
+            'type_id' => 'nullable|exists:types,id'
 
         ], [
 
@@ -134,6 +144,7 @@ class ProjectController extends Controller
             'title.max' => 'Il titolo non deve essere più lungo di 100 caratteri',
             'title.min' => 'Il titolo deve avere minimo 3 caratteri',
             'content.required' => 'Devi inserire una descrizione',
+            'type_id.exists' => 'La tipologia deve essere presente nella lista'
 
         ])->validate();
 
