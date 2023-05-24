@@ -39,6 +39,14 @@
     <em>Nessun progetto disponibile per la tipologia selezionata</em>
 
     @endif
+
+    <div class="d-flex justify-content-around">
+
+        <a href="{{route('admin.types.edit', $type)}}" class="btn btn-primary">Modifica</a>
+
+        
+
+    </div>
     
 </div>
 

@@ -80,7 +80,7 @@ class TypeController extends Controller
      */
     public function edit(Type $type)
     {
-        //
+        return view('admin.types.edit', compact('type'));
     }
 
     /**
@@ -92,7 +92,19 @@ class TypeController extends Controller
      */
     public function update(Request $request, Type $type)
     {
-        //
+        //controllo se sto ricevendo la modifica nel modo corretto
+        // dd($request);
+
+        $formData = $request->all();
+
+        $this->validation($formData);
+
+        // utilizzo uno dei due metodi mostrati
+        $formData['slug'] = Str::slug($formData['name'], '-');
+
+        $type->update($formData);
+
+        return redirect()->route('admin.types.show', $type);
     }
 
     /**
@@ -112,7 +124,7 @@ class TypeController extends Controller
 
         $validator = Validator::make($formData, [
 
-            'name' => 'required|max:255|min:2',
+            'name' => 'required|max:255|min:2|unique:App\Models\Type,name',
             'description' => 'required'
 
         ], [
@@ -120,6 +132,7 @@ class TypeController extends Controller
             'name.required' => 'Devi inserire il nome',
             'name.max' => 'Il nome non deve essere più lungo di 100 caratteri',
             'name.min' => 'Il nome deve avere minimo 2 caratteri',
+            'name.unique' => 'é già presente una tipologia con questo nome',
             'description.required' => 'Devi inserire una descrizione',
 
         ])->validate();

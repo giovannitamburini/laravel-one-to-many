@@ -50,6 +50,7 @@ class ProjectController extends Controller
 
         // dd($formData);
 
+        // funzione di validazione
         $this->validation($formData);
 
         $project = new Project();
